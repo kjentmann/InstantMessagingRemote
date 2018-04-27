@@ -2,6 +2,7 @@ package webSocketService;
 
 import apiREST.Cons;
 import com.google.gson.Gson;
+import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class WebSocketClient {
   static Map<String, Subscriber> subscriberMap;
   static Session session;
 
-  public static void newInstance() { // Note: called wwhen new client created
+  public static void newInstance() { // Note: called when new clent created
     subscriberMap = new HashMap<String, Subscriber>();
     try {
       WebSocketContainer container = ContainerProvider.getWebSocketContainer();
@@ -35,69 +36,72 @@ public class WebSocketClient {
     }
   }
   
-  
-  
-  /*
-  DELETE THIS
-  
-  @Override
-  public void onEvent(String topic, String event) {
-    Gson gson = new Gson();
-    MyEvent myEvent = new MyEvent();
-    myEvent.topic = topic;
-    myEvent.content = event;
-    String json = gson.toJson(myEvent);
-    try {
-      session.getBasicRemote().sendText(json);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-  }
-  
-  
-  */
-
   //only one subscriber per topic allowed:
   public static synchronized void addSubscriber(String topic_name, Subscriber subscriber) {
-    
-    //...
-    
-  }
+      if (!subscriberMap.containsKey(topic_name)){
+        System.out.println("WS trying to request for new subscriber..");
+        Gson gson = new Gson();
+        MySubscriptionRequest mySubsReq = new MySubscriptionRequest();
+        mySubsReq.type=mySubsReq.type.ADD;
+        mySubsReq.topic=topic_name;
+        String json = gson.toJson(mySubsReq);
+        try{
+            session.getBasicRemote().sendText(json);
+            subscriberMap.put(topic_name, subscriber);
+        } 
+        catch (IOException exx) {
+        exx.printStackTrace(); 
+        System.out.println("DEBUG: Trouble sending subscription req");
+        }
+      }
+      else{
+            System.out.println("DEBUG: Only one subscriber per topic allowed");
+      }
+    }
+  
 
   public static synchronized void removeSubscriber(String topic_name) {
-    
-    //...
-    
-  }
+       if (!subscriberMap.containsKey(topic_name)){
+        System.out.println("WS trying to remove subscriber..");
+        Gson gson = new Gson();
+        MySubscriptionRequest mySubsReq = new MySubscriptionRequest();
+        mySubsReq.type=mySubsReq.type.REMOVE;
+        mySubsReq.topic=topic_name;
+        String json = gson.toJson(mySubsReq);
+        try{
+            session.getBasicRemote().sendText(json);
+            subscriberMap.remove(topic_name);
+        } 
+        catch (IOException exx) {
+            exx.printStackTrace(); 
+            System.out.println("DEBUG: Trouble removing subscription req");
+        }
+      }
+    }
 
   public static void close() {
     try {
       session.close();
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   @OnMessage
   public void onMessage(String message) {
-
     Gson gson = new Gson();
     MyEvent myEvent = gson.fromJson(message, MyEvent.class);
     String content = myEvent.content;
-
     //message to notify subscription close:
     if (content == null) {
-      
-      //...
-      
+        System.out.println("DEBUG: NON - ordinary message received: " + content);
+        subscriberMap.get(myEvent.topic).onClose(myEvent.content,myEvent.topic);
     } 
     //ordinary message from topic:
     else {
-        session.
-      
+        subscriberMap.get(myEvent.topic).onEvent(myEvent.content,myEvent.topic);
       //...
-      
     }
   }
-
 }

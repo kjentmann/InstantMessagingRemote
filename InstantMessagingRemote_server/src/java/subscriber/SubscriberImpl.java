@@ -20,6 +20,7 @@ public class SubscriberImpl implements Subscriber {
 
   @Override
   public void onEvent(String topic, String event) {
+      
     Gson gson = new Gson();
     MyEvent myEvent = new MyEvent();
     myEvent.topic = topic;

@@ -74,8 +74,11 @@ public class TopicManagerImpl implements TopicManager {
     public boolean subscribe(String topic, Subscriber subscriber){
         if(isTopic(topic)){
            this.topicMap.get(topic).attachSubscriber(subscriber);
+            System.out.println("DEBUG: TopicManager subscribed");
+
             return true;
         }else{
+            System.out.println("DEBUG: TopicManager subscribe failed");
             return false;
         }
          //...

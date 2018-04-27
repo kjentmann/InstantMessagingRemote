@@ -49,11 +49,19 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
     
     public void publish(String topic, String event) {
         int num =0;
+        try{
         for (Subscriber sub : subscriberSet){
             num ++;
             sub.onEvent(topic, event);
             System.out.println("DEBUG: Publisher published to subscriber # " + num);
-        }  
+        }
+        }
+        catch(Exception ex){
+            System.out.println("DEBUG: Error in server publisher.");
+        }
+        if (subscriberSet.isEmpty()){
+              System.out.println("DEBUG: Server has no subscribers listening on the topic:( ");
+        }
     }
   
   
