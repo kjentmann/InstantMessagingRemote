@@ -23,8 +23,6 @@ public class TopicManagerImpl implements TopicManager {
   // INFO: Functions copied 25/4 - consider update if improved FIX
   //
   
-  
-  
     public boolean isTopic(String topic){
         if( this.topicMap.containsKey(topic)){
             return true;
@@ -35,16 +33,21 @@ public class TopicManagerImpl implements TopicManager {
     }
     
     public Set<String> topics(){
+        Set<String> topicSet = new HashSet<String>();
         if (topicMap.isEmpty()){
             return null;
         }
-        Set<String> topicSet;
-        topicSet = new HashSet<String>();
+        try{
+
         for (Map.Entry<String, PublisherAdmin> entry : topicMap.entrySet()){
             topicSet.add(entry.getKey());
-        }
+        }}
+        catch (Exception ex){
+            ex.printStackTrace();
+            }
         return topicSet;
-        //...
+        
+//...
     }
     
     public Publisher addPublisherToTopic(String topic){
@@ -62,7 +65,7 @@ public class TopicManagerImpl implements TopicManager {
         return publishAdm;
     }
     
-    public int removePublisherFromTopic(String topic){
+    public int removePucblisherFromTopic(String topic){
         if (topicMap.get(topic).decPublishers()<1){
             topicMap.get(topic).detachAllSubscribers();
             this.topicMap.remove(topic);
@@ -96,6 +99,13 @@ public class TopicManagerImpl implements TopicManager {
     public Publisher publisher(String topic) {
     return topicMap.get(topic);
   }
+
+    @Override
+    public int removePublisherFromTopic(String topic) {
+        this.topicMap.remove(topic);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return -1;
+    }
 
 }
 

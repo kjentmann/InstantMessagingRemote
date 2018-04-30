@@ -40,7 +40,7 @@ public class TopicManagerFacadeREST {
   public MyInteger removePublisherFromTopic(MyString topic) {
     MyInteger myInteger = new MyInteger();
     myInteger.content = global.getTopicManager().removePublisherFromTopic(topic.content);
-    return myInteger;
+    return null;
   }
 
   @POST
@@ -62,13 +62,22 @@ public class TopicManagerFacadeREST {
   @Consumes({"application/xml", "application/json"})
   @Produces({"application/xml", "application/json"})
   public List<MyString> topics() {
+      try{
     List<MyString> topics = new ArrayList<MyString>();
     for (String topic : global.getTopicManager().topics()) {
       MyString myString = new MyString();
       myString.content = topic;
       topics.add(myString);
     }
-    return topics;
+        return topics;
+
+      }
+      catch(Exception aa){
+          System.out.println("TJAJAAA");
+      }
+              return null;
+
   }
+  
 
 }

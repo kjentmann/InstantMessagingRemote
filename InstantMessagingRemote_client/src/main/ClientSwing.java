@@ -127,7 +127,6 @@ public class ClientSwing {
                 argument_TextField.grabFocus();
             }
         }
-    
     class newPublisherHandler implements ActionListener{
         public void actionPerformed(ActionEvent e) {
             String topic = getArg();
@@ -136,6 +135,7 @@ public class ClientSwing {
             }
             else{
                     if (publisherTopic!=null){
+                        System.out.println("trying to remove : " + publisherTopic);
                         topicManager.removePublisherFromTopic(publisherTopic);
                     }
                 publisher = topicManager.addPublisherToTopic(topic);
@@ -202,12 +202,14 @@ public class ClientSwing {
     }
     class CloseAppHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            //...
+        if (publisherTopic!=null)
+           topicManager.removePublisherFromTopic(publisherTopic);
             System.out.println("app closed");
             System.exit(0);
         }
     }
     class CloseWindowHandler implements WindowListener{
+     
         public void windowDeactivated(WindowEvent e) {}
         public void windowActivated(WindowEvent e) {}
         public void windowIconified(WindowEvent e) {}
@@ -216,9 +218,12 @@ public class ClientSwing {
         public void windowOpened(WindowEvent e) {}
         public void windowClosing(WindowEvent e) {
             //...
-            System.out.println("app closed");
-            System.exit(0);
+        if (publisherTopic!=null)
+            topicManager.removePublisherFromTopic(publisherTopic);
+        System.out.println("app closed");
+        System.exit(0);
         }
     }
 }
+    
 

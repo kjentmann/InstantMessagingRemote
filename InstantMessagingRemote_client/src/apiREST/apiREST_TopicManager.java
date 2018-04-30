@@ -119,14 +119,16 @@ public class apiREST_TopicManager {
       MyString[] reply = gson.fromJson(in, MyString[].class);
       List<MyString> topics = Arrays.asList(reply);
       Set<String> result = new HashSet<String>();
+      
       for (MyString myString : topics) {
         result.add(myString.content);
       }
       return result;
 
     } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+      Set<String> emptyResult = new HashSet<String>();
+      return emptyResult;
+    
     }
   }
 }
