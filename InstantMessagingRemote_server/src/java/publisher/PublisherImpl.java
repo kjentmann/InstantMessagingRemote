@@ -19,7 +19,7 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
   }
  
   
-  // INFO: Functions copied 25/4 - consider update if improved FIX
+  // INFO: Functions copied 25/4 - consider update if improved FIX updateded may
   
      public int incPublishers(){
         return ++numPublishers;
@@ -32,8 +32,9 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
         //...
     }
     public void detachSubscriber(Subscriber subscriber) {
-        this.subscriberSet.remove(subscriber);
         subscriber.onClose(topic,"SUBSCRIBER");
+        this.subscriberSet.remove(subscriber);
+
         //...
     }
     public void detachAllSubscribers() {
@@ -42,7 +43,7 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
             sub.onClose(topic,"PUBLISHER");
             }
         catch(Exception exx){
-            System.out.println("DEBUG: exception catched, sub dont exist");
+            System.out.println("WARNING -> Server -> Publisher -> Exception catched, sub dont exist");
             }
         this.subscriberSet.clear();
     }
@@ -53,14 +54,14 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
         for (Subscriber sub : subscriberSet){
             num ++;
             sub.onEvent(topic, event);
-            System.out.println("DEBUG: Publisher published to subscriber # " + num);
+            System.out.println("INFO -> Server -> Publisher -> Published to subscriber # " + num);
         }
         }
         catch(Exception ex){
-            System.out.println("DEBUG: Error in server publisher.");
+            System.out.println("ERROR -> Server -> Publisher -> Failed to publish. Call a friend.");
         }
         if (subscriberSet.isEmpty()){
-              System.out.println("DEBUG: Server has no subscribers listening on the topic:( ");
+              System.out.println("WARNING -> Server -> Publisher -> No subscribers listening on the topic :( ");
         }
     }
   

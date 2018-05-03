@@ -5,16 +5,21 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/apiREST/Cons.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/webSocketService/WebSocketClient.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/util/MyEvent.java</file>
             <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/topicmanager/TopicManagerStub.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/publisher/PublisherStub.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/util/MySubscriptionRequest.java</file>
             <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/apiREST/apiREST_Publisher.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/subscriber/SubscriberImpl.java</file>
             <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/apiREST/apiREST_TopicManager.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/main/Client_John.java</file>
             <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/main/ClientSwing.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/topicmanager/TopicManager.java</file>
             <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/publisher/Publisher.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/util/MyBoolean.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/webSocketService/WebSocketClient.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/main/Client_Peter.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/util/MySubscriptionClose.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/publisher/PublisherStub.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/subscriber/SubscriberImpl.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/main/Client_John.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_client/src/topicmanager/TopicManager.java</file>
         </group>
     </open-files>
 </project-private>

@@ -36,7 +36,7 @@ public class ClientSwing {
 
         String user = ((TopicManagerStub)topicManager).user;
         frame = new JFrame("DSIT - Publisher/Subscriber demo, user : "+user);
-        frame.setSize(300,300);
+        frame.setSize(900,350);
         frame.addWindowListener(new CloseWindowHandler());
         
         topic_list_TextArea = new JTextArea(5,10);
@@ -95,7 +95,7 @@ public class ClientSwing {
         mainPanel.add(argumentP,BorderLayout.PAGE_END);
         mainPanel.add(topicsP,BorderLayout.LINE_START);
 
-        frame.pack();
+        //frame.pack();
         frame.setVisible(true);
         argument_TextField.grabFocus();
 
@@ -134,8 +134,10 @@ public class ClientSwing {
                 messages_TextArea.append(getTime() + "SYSTEM: Missing input.\n"); 
             }
             else{
-                    if (publisherTopic!=null){
-                        System.out.println("trying to remove : " + publisherTopic);
+                 if (topic.equals(publisherTopic))
+                        System.out.println("WARNING -> ClientsWing -> Already publishing on topic");
+                 else if (publisherTopic!=null){
+                        System.out.println("INFO -> Clientswing -> Trying to remove : " + publisherTopic);
                         topicManager.removePublisherFromTopic(publisherTopic);
                     }
                 publisher = topicManager.addPublisherToTopic(topic);
@@ -151,7 +153,7 @@ public class ClientSwing {
         public void actionPerformed(ActionEvent e) {
            String topic = getArg();
             if (topic.isEmpty() || my_subscriptions.containsKey(topic) || topic == publisherTopic)
-                messages_TextArea.append(getTime() + "SYSTEM: Subscriber exist, publishing on same client or missing input.\n"); 
+                messages_TextArea.append(getTime() + "SYSTEM: Invalid operation.\n"); 
             else if (topicManager.isTopic(topic)){
                 Subscriber newsubscriber;
                 newsubscriber = new SubscriberImpl(ClientSwing.this);
@@ -160,8 +162,11 @@ public class ClientSwing {
                 my_subscriptions_TextArea.append(topic + "\n");
                 messages_TextArea.append(getTime() + "SYSTEM: Subscribed on topic '"+ topic + "̈́'.\n"); 
             }
-            else
+            else{
                 messages_TextArea.append(getTime() + "SYSTEM: Topic '"+ topic + "̈́' does not exist.\n");
+                System.out.println("WARNING -> Clientswing -> Topic '"+ topic + "̈́' does not exist.");
+            }
+                
         }
     }
         
@@ -175,13 +180,14 @@ public class ClientSwing {
                        for (String otherTopics : my_subscriptions.keySet()){
                              my_subscriptions_TextArea.append(otherTopics+"\n");
                        }
+                        System.out.println("INFO -> Clientswing -> Unsubscribed from '"+topic+"'.");
                 }
                 else{
                 messages_TextArea.append(getTime() + "SYSTEM: Topic '"+ topic + "̈́' does not exist.\n");
                 }
             }
             catch(Exception ex){
-               System.out.println("DEBUG: Error, no active subscribers to remove.");
+               System.out.println("ERROR -> Clientswing -> Error, no active subscribers to remove.");
             }
         }
     }
@@ -202,9 +208,11 @@ public class ClientSwing {
     }
     class CloseAppHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        if (publisherTopic!=null)
-           topicManager.removePublisherFromTopic(publisherTopic);
-            System.out.println("app closed");
+        if (publisherTopic!=null){
+            System.out.println("INFO -> Clientswing -> Publisher removed before killing client");
+            topicManager.removePublisherFromTopic(publisherTopic);
+            } 
+            System.out.println("INFO -> Clientswing -> App closed");
             System.exit(0);
         }
     }
@@ -217,13 +225,12 @@ public class ClientSwing {
         public void windowClosed(WindowEvent e) {}
         public void windowOpened(WindowEvent e) {}
         public void windowClosing(WindowEvent e) {
-            //...
-        if (publisherTopic!=null)
+        if (publisherTopic!=null){
             topicManager.removePublisherFromTopic(publisherTopic);
-        System.out.println("app closed");
+            System.out.println("INFO -> Clientswing -> Publisher removed before killing client");
+            }
+            System.out.println("INFO -> Clientswing -> App closed");
         System.exit(0);
         }
     }
 }
-    
-

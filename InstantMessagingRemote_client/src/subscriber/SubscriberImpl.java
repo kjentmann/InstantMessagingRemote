@@ -4,6 +4,8 @@
  */
 package subscriber;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import javax.swing.JTextArea;
 import main.ClientSwing;
@@ -23,7 +25,11 @@ public class SubscriberImpl implements Subscriber {
     this.my_subscriptions_TextArea = clientSwing.my_subscriptions_TextArea;
     this.my_subscriptions = clientSwing.my_subscriptions;
   }
-
+    private static String getTime() {
+       SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd HH:mm ");
+       return sdfTime.format(new Date());
+   }
+    
   public void onClose(String topic, String cause) {
     if (cause.equals("PUBLISHER")) {
       messages_TextArea.append("Publishers on " + topic + " have ended\n");
@@ -39,6 +45,6 @@ public class SubscriberImpl implements Subscriber {
   }
 
   public void onEvent(String topic, String event) {
-    messages_TextArea.append(topic + ": " + event + "\n");
+    messages_TextArea.append(getTime() + "" +topic + ": " + event + "\n");
   }
 }

@@ -40,7 +40,7 @@ public class TopicManagerFacadeREST {
   public MyInteger removePublisherFromTopic(MyString topic) {
     MyInteger myInteger = new MyInteger();
     myInteger.content = global.getTopicManager().removePublisherFromTopic(topic.content);
-    return null;
+    return myInteger;
   }
 
   @POST

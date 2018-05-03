@@ -51,5 +51,4 @@ public class SubscriberImpl implements Subscriber {
       ex.printStackTrace();
     }
   }
-
 }

@@ -27,7 +27,7 @@ public class apiREST_TopicManager {
       MyString the_topic = new MyString();
       the_topic.content = topic;
       String json = gson.toJson(the_topic);
-      System.out.println(json);
+      //System.out.println(json);
       out.println(json);
       out.flush();
       ucon.connect();
@@ -58,7 +58,7 @@ public class apiREST_TopicManager {
       MyString the_topic = new MyString();
       the_topic.content = topic;
       String json = gson.toJson(the_topic);
-      System.out.println(json);
+      //System.out.println(json);
       out.println(json);
       out.flush();
       ucon.connect();
@@ -89,7 +89,7 @@ public class apiREST_TopicManager {
       MyString the_topic = new MyString();
       the_topic.content = topic;
       String json = gson.toJson(the_topic);
-      System.out.println(json);
+      //System.out.println(json);
       out.println(json);
       out.flush();
       ucon.connect();

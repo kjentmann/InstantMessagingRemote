@@ -28,10 +28,10 @@ public class WebSocketClient {
       WebSocketContainer container = ContainerProvider.getWebSocketContainer();
       session = container.connectToServer(WebSocketClient.class,
         URI.create(Cons.SERVER_WEBSOCKET));
-        System.out.println("SYSTEM: Connected to server.");
+        System.out.println("INFO -> Websocket -> Connected to server.");
 
     } catch (Exception e) {
-        System.out.println("SYSTEM: ERROR. No connection to the remote server!");
+        System.out.println("ERROR -> WebSocket -> No connection to the remote server!");
         //e.printStackTrace();
     }
   }
@@ -39,7 +39,7 @@ public class WebSocketClient {
   //only one subscriber per topic allowed:
   public static synchronized void addSubscriber(String topic_name, Subscriber subscriber) {
       if (!subscriberMap.containsKey(topic_name)){
-        System.out.println("WS trying to request for new subscriber..");
+        System.out.println("INFO -> WebSocet -> Trying to request for new subscriber..");
         Gson gson = new Gson();
         MySubscriptionRequest mySubsReq = new MySubscriptionRequest();
         mySubsReq.type=mySubsReq.type.ADD;
@@ -48,21 +48,22 @@ public class WebSocketClient {
         try{
             session.getBasicRemote().sendText(json);
             subscriberMap.put(topic_name, subscriber);
+            System.out.println("INFO -> WebSocet -> Subscribed successfully to topic '"+topic_name+"'.");
+
         } 
         catch (IOException exx) {
         exx.printStackTrace(); 
-        System.out.println("DEBUG: Trouble sending subscription req");
+        System.out.println("INFO -> WebSocket -> Trouble sending subscription req");
         }
       }
       else{
-            System.out.println("DEBUG: Only one subscriber per topic allowed");
+            System.out.println("WARNING -> WebSocket -> Only one subscriber per topic allowed");
       }
     }
   
 
   public static synchronized void removeSubscriber(String topic_name) {
        if (!subscriberMap.containsKey(topic_name)){
-        System.out.println("WS trying to remove subscriber..");
         Gson gson = new Gson();
         MySubscriptionRequest mySubsReq = new MySubscriptionRequest();
         mySubsReq.type=mySubsReq.type.REMOVE;
@@ -71,10 +72,11 @@ public class WebSocketClient {
         try{
             session.getBasicRemote().sendText(json);
             subscriberMap.remove(topic_name);
+            System.out.println("INFO -> WebSocet -> Unsubscribed successfully from '"+topic_name+"'.");
         } 
         catch (IOException exx) {
             exx.printStackTrace(); 
-            System.out.println("DEBUG: Trouble removing subscription req");
+            System.out.println("ERROR -> WebSocket -> Trouble removing subscription req");
         }
       }
     }
@@ -98,12 +100,9 @@ public class WebSocketClient {
         System.out.println("DEBUG: NON - ordinary (desubscribe) message received: " + content + myEvent.topic + " subs: "+subscriberMap);
         subscriberMap.get(myEvent.topic).onClose(myEvent.topic,"PUBLISHER");
         subscriberMap.remove(myEvent.topic);
-
     } 
-    //ordinary message from topic:  
     else {
         subscriberMap.get(myEvent.topic).onEvent(myEvent.topic,myEvent.content);
-      //...
     }
   }
 }
