@@ -10,9 +10,10 @@ import webSocketService.WebSocketClient;
 public class TopicManagerStub implements TopicManager {
   apiREST_TopicManager apiREST;
   public String user;
+  public String server_status;
 
   public TopicManagerStub(String user) {
-    WebSocketClient.newInstance();
+    this.server_status = WebSocketClient.newInstance();
     this.user = user;
     apiREST = new apiREST_TopicManager();
   }

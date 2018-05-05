@@ -97,6 +97,9 @@ public class ClientSwing {
 
         //frame.pack();
         frame.setVisible(true);
+        messages_TextArea.append(getTime() + "SERVER: " +((TopicManagerStub)topicManager).server_status +  "\n"); 
+        
+        
         argument_TextField.grabFocus();
 
     }
