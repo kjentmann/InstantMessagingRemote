@@ -3,25 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/facadeREST/TopicManagerFacadeREST.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/topicmanager/TopicManager.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/subscriber/SubscriberImpl.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/webSocketService/WebSocketServer.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/facadeREST/ApplicationConfig.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/util/MyEvent.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/web/index.html</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/facadeREST/PublisherFacadeREST.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/publisher/Publisher.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/conf/MANIFEST.MF</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/util/MyInteger.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/topicmanager/TopicManagerImpl.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/util/MySubscriptionClose.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/util/MyString.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/build.xml</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/nbproject/build-impl.xml</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/publisher/PublisherAdmin.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/publisher/PublisherImpl.java</file>
-            <file>file:/home/madsoft/code/InstantMessagingRemote/InstantMessagingRemote_server/src/java/util/Global.java</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/server_InstantMsgRemote/web/index.html</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/server_InstantMsgRemote/nbproject/project.xml</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/server_InstantMsgRemote/src/conf/MANIFEST.MF</file>
+            <file>file:/home/madsoft/code/InstantMessagingRemote/server_InstantMsgRemote/src/java/facadeREST/TopicManagerFacadeREST.java</file>
         </group>
     </open-files>
 </project-private>
