@@ -10,8 +10,6 @@ public class apiREST_Publisher {
     try {
       URL url = new URL(Cons.SERVER_REST + "/publisher/publish");
       HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
-      
-      
 
       ucon.setRequestMethod("POST");
       ucon.setDoInput(true);

@@ -15,9 +15,9 @@ import util.MyString;
 import util.Global;
 
 /**
- *
  * @author upcnet
  */
+
 @Stateless
 @Path("topicmanager")
 public class TopicManagerFacadeREST {
@@ -63,21 +63,17 @@ public class TopicManagerFacadeREST {
   @Produces({"application/xml", "application/json"})
   public List<MyString> topics() {
       try{
-    List<MyString> topics = new ArrayList<MyString>();
-    for (String topic : global.getTopicManager().topics()) {
-      MyString myString = new MyString();
-      myString.content = topic;
-      topics.add(myString);
-    }
+        List<MyString> topics = new ArrayList<MyString>();
+        for (String topic : global.getTopicManager().topics()) {
+          MyString myString = new MyString();
+          myString.content = topic;
+          topics.add(myString);
+        }
         return topics;
-
       }
-      catch(Exception aa){
-          System.out.println("TJAJAAA");
+      catch(Exception e){
+          System.out.println("ERROR -> Server -> TopicREST -> Error while adding topics");
+          return null;
       }
-              return null;
-
   }
-  
-
 }

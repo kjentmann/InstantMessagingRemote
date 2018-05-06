@@ -16,9 +16,6 @@ public class TopicManagerImpl implements TopicManager {
   public TopicManagerImpl() {
     topicMap = new HashMap<String, PublisherAdmin>();
   }
-  //
-  // INFO: Functions copied 25/4 - consider update if improved FIX updated may
-  //
   
     public boolean isTopic(String topic){
         if( this.topicMap.containsKey(topic))
@@ -26,23 +23,23 @@ public class TopicManagerImpl implements TopicManager {
         else
             return false;
     }
-    
+     @Override
     public Set<String> topics(){
         Set<String> topicSet = new HashSet<String>();
         if (topicMap.isEmpty()){
             return null;
         }
         try{
-
-        for (Map.Entry<String, PublisherAdmin> entry : topicMap.entrySet()){
-            topicSet.add(entry.getKey());
-        }}
+            for (Map.Entry<String, PublisherAdmin> entry : topicMap.entrySet()){
+                topicSet.add(entry.getKey());
+            }
+        }
         catch (Exception ex){
             ex.printStackTrace();
             }
         return topicSet;
     }
-    
+     @Override
     public Publisher addPublisherToTopic(String topic){
         PublisherAdmin publishAdm;
         if (isTopic(topic)){
@@ -57,32 +54,23 @@ public class TopicManagerImpl implements TopicManager {
             System.out.println("INFO -> Server -> TopicManager -> Publisher on topic '" + topic + "' added.");
 
         }
-          System.out.println("TopicMAP: " + topicMap);
+        System.out.println("TopicMAP: " + topicMap);
         return publishAdm;
     }
     
-    public int removePucblisherFromTopic(String topic){
-        if (topicMap.get(topic).decPublishers()<1){
-            topicMap.get(topic).detachAllSubscribers();
-            this.topicMap.remove(topic);
-            System.out.println("INFO -> Server -> TopicManager ->  No more publisher of " + topic + ". Removing pub..");
-        }
-        return -1;
-    }
-    
+     @Override
     public boolean subscribe(String topic, Subscriber subscriber){
         if(isTopic(topic)){
            this.topicMap.get(topic).attachSubscriber(subscriber);
             System.out.println("INFO -> Server -> TopicManager -> Subscribed");
-
             return true;
         }else{
             System.out.println("INFO -> Server -> TopicManager -> Subscribtion failed");
             return false;
         }
-         //...
     }
     
+     @Override
     public boolean unsubscribe(String topic, Subscriber subscriber){
         if(isTopic(topic)){
             this.topicMap.get(topic).detachSubscriber(subscriber);
@@ -95,52 +83,17 @@ public class TopicManagerImpl implements TopicManager {
     public Publisher publisher(String topic) {
     return topicMap.get(topic);
   }
-
     @Override
     public int removePublisherFromTopic(String topic) {
-        this.topicMap.remove(topic);
-        return -1;
+         if (topicMap.get(topic).decPublishers()<1){
+            topicMap.get(topic).detachAllSubscribers();
+            this.topicMap.remove(topic);
+            System.out.println("INFO -> Server -> TopicManager ->  No more publisher of " + topic + ". Removing pub..");
+            return -1;
+        }
+         else{
+            System.out.println("INFO -> Server -> TopicManager ->  Publishers still exist on topic. Subscribers not removed.");
+            return 0;
+        }
     }
-
 }
-
-
-
-
-/*
-
-  @Override
-  public Publisher addPublisherToTopic(String topic) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public int removePublisherFromTopic(String topic) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public boolean isTopic(String topic) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public Set<String> topics() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public boolean subscribe(String topic, Subscriber subscriber) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public boolean unsubscribe(String topic, Subscriber subscriber) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-  
-  public Publisher publisher(String topic) {
-    return topicMap.get(topic);
-  }
-
-*/

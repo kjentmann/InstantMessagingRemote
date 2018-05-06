@@ -32,7 +32,7 @@ public class SubscriberImpl implements Subscriber {
     
   public void onClose(String topic, String cause) {
     if (cause.equals("PUBLISHER")) {
-      messages_TextArea.append("Publishers on " + topic + " have ended\n");
+      messages_TextArea.append(getTime() + "All publishers of " + topic + " have closed. Subscription ends.\n");
       my_subscriptions.remove(topic);
 
       my_subscriptions_TextArea.setText("");
@@ -40,7 +40,7 @@ public class SubscriberImpl implements Subscriber {
         my_subscriptions_TextArea.append(topic2 + "\n");
       }
     } else if (cause.equals("SUBSCRIBER")) {
-      messages_TextArea.append("Subscription ends...\n");
+      messages_TextArea.append(getTime() +"Subscription ends...\n");
     }
   }
 

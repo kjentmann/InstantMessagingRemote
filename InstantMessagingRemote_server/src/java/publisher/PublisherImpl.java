@@ -32,8 +32,15 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
         //...
     }
     public void detachSubscriber(Subscriber subscriber) {
-        subscriber.onClose(topic,"SUBSCRIBER");
-        this.subscriberSet.remove(subscriber);
+           try{
+            for (Subscriber sub : this.subscriberSet)
+                   subscriber.onClose(this.topic,"SUBSCRIBER");
+                    this.subscriberSet.remove(subscriber);
+
+            }
+        catch(Exception exx){
+            System.out.println("WARNING -> Server -> Publisher -> Exception catched, sub dont exist");
+            }
 
         //...
     }
@@ -41,11 +48,11 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
         try{
             for (Subscriber sub : this.subscriberSet)
             sub.onClose(topic,"PUBLISHER");
+            this.subscriberSet.clear();
             }
         catch(Exception exx){
             System.out.println("WARNING -> Server -> Publisher -> Exception catched, sub dont exist");
             }
-        this.subscriberSet.clear();
     }
     
     public void publish(String topic, String event) {

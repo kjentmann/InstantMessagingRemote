@@ -27,12 +27,13 @@ public class TopicManagerStub implements TopicManager {
         apiREST.addPublisherToTopic(topic);
         System.out.println("INFO -> TopicManager -> New publisher requested created on topic '"+topic+"'.");
         return newPublisher;
-        // TODO: Tis func creates (and replaces) a new pub every time. Check if thats correct beahaviour. 
   }
 
   public int removePublisherFromTopic(String topic) {
-       System.out.println("INFO -> TopicManager -> Publisher requested removed from topic '"+topic+"'.");
+
+      System.out.println("INFO -> TopicManager -> Publisher requested removed from topic '"+topic+"'.");
       return apiREST.removePublisherFromTopic(topic);
+
   }//
 
   public boolean isTopic(String topic_name) {

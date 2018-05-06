@@ -99,7 +99,6 @@ public class WebSocketClient {
     String content = myEvent.content;
     //message to notify subscription close:
     if (content == null) {
-        System.out.println("DEBUG: NON - ordinary (desubscribe) message received: " + content + myEvent.topic + " subs: "+subscriberMap);
         subscriberMap.get(myEvent.topic).onClose(myEvent.topic,"PUBLISHER");
         subscriberMap.remove(myEvent.topic);
     } 

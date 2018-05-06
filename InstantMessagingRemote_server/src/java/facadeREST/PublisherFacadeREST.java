@@ -26,7 +26,7 @@ public class PublisherFacadeREST {
   @Consumes({"application/xml", "application/json"})
   @Produces({"application/xml", "application/json"})
   public void publish(MyEvent myEvent) {
-      System.out.println("DEBUG: server received message! redirecting..");
+     System.out.println("INFO -> Server -> RESTapi-> received message! redirecting..");
     Publisher publisher = global.getTopicManager().publisher(myEvent.topic);
     publisher.publish(myEvent.topic, myEvent.content);
   }

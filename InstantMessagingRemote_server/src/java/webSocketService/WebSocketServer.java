@@ -42,12 +42,11 @@ public class WebSocketServer {
 
   @OnOpen
   public void onOpen(Session session) {
-    System.out.println("new session: " + session.getId());
+    System.out.println("INFO -> Server -> WebSocket -> New session: " + session.getId());
   }
 
   @OnClose
   public void onClose(Session session) {
-    System.out.println("closed session: " + session.getId());
+    System.out.println("INFO -> Server -> WebSocket -> Closed session: " + session.getId());
   }
-
 }

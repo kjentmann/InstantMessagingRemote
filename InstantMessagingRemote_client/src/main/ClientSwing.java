@@ -94,12 +94,10 @@ public class ClientSwing {
         mainPanel.add(messagesPanel,BorderLayout.CENTER);
         mainPanel.add(argumentP,BorderLayout.PAGE_END);
         mainPanel.add(topicsP,BorderLayout.LINE_START);
-
-        //frame.pack();
+        //frame.pack(); //manaul size
         frame.setVisible(true);
         messages_TextArea.append(getTime() + "SERVER: " +((TopicManagerStub)topicManager).server_status +  "\n"); 
-        
-        
+        updateTopics();
         argument_TextField.grabFocus();
 
     }
@@ -114,14 +112,16 @@ public class ClientSwing {
         argument_TextField.grabFocus();
         return arg;
      }
-
-    class showTopicsHandler implements ActionListener{
-        public void actionPerformed(ActionEvent e) {
-            if (topicManager.topics()!=null){
-                topic_list_TextArea.setText(null);
+private void updateTopics(){
+     topic_list_TextArea.setText(null);
                 for (String topic : topicManager.topics()){
                     topic_list_TextArea.append(topic + "\n");
                 }
+}
+    class showTopicsHandler implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            if (topicManager.topics()!=null){
+               updateTopics();
             }
             else{
                 topic_list_TextArea.setText(null);
@@ -142,6 +142,7 @@ public class ClientSwing {
                  else if (publisherTopic!=null){
                         System.out.println("INFO -> Clientswing -> Trying to remove : " + publisherTopic);
                         topicManager.removePublisherFromTopic(publisherTopic);
+
                     }
                 publisher = topicManager.addPublisherToTopic(topic);
                 publisherTopic=topic;
@@ -149,6 +150,7 @@ public class ClientSwing {
                 publisher_TextArea.append(topic + "\n");
                 messages_TextArea.append(getTime() + "SYSTEM: You are publisher of topic '"+ topic + "̈́'.\n"); 
             }
+            updateTopics();
         }
     }
         
@@ -169,6 +171,7 @@ public class ClientSwing {
                 messages_TextArea.append(getTime() + "SYSTEM: Topic '"+ topic + "̈́' does not exist.\n");
                 System.out.println("WARNING -> Clientswing -> Topic '"+ topic + "̈́' does not exist.");
             }
+            updateTopics();
                 
         }
     }
@@ -192,6 +195,7 @@ public class ClientSwing {
             catch(Exception ex){
                System.out.println("ERROR -> Clientswing -> Error, no active subscribers to remove.");
             }
+            updateTopics();
         }
     }
     
@@ -199,6 +203,7 @@ public class ClientSwing {
         public void actionPerformed(ActionEvent e) {
             if (publisher != null){
                 String event = getArg();
+                updateTopics();
                 if (!event.isEmpty()){
                     publisher.publish(publisherTopic, event);
                     messages_TextArea.append(getTime() + "You published: " + event + "\n");
