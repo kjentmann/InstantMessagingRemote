@@ -1,0 +1,8 @@
+Due to a bug of GlassFish 4.1.1. you have to go to the directory where you have
+the GlassFish 4.1.1 installed and access to the subfolder: "glassfish-4.1.1\glassfish\modules"
+to:
+
+- add the file: jackson-module-jaxb-annotations-2.5.1.jar
+- replace the file: org.eclipse.persistence.moxy.jar
+
+Create a new App Server and domain on NetBeans for the changes to take effect.
