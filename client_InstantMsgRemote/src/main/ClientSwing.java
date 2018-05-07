@@ -94,7 +94,12 @@ public class ClientSwing {
         mainPanel.add(messagesPanel,BorderLayout.CENTER);
         mainPanel.add(argumentP,BorderLayout.PAGE_END);
         mainPanel.add(topicsP,BorderLayout.LINE_START);
+        
         //frame.pack(); //manaul size
+        messages_TextArea.setEditable(false);
+        topic_list_TextArea.setEditable(false);
+        my_subscriptions_TextArea.setEditable(false);
+        publisher_TextArea.setEditable(false);
         frame.setVisible(true);
         messages_TextArea.append(getTime() + "SERVER: " +((TopicManagerStub)topicManager).server_status +  "\n"); 
         updateTopics();
