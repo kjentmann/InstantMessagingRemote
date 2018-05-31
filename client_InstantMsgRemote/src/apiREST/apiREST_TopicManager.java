@@ -12,7 +12,7 @@ import util.MyInteger;
 import util.MyString;
 
 public class apiREST_TopicManager {
-  public static void addPublisherToTopic(String topic) {
+  public static boolean addPublisherToTopic(String topic) {
     try {
       URL url = new URL(Cons.SERVER_REST + "/topicmanager/addtopic");
       HttpURLConnection ucon = (HttpURLConnection) url.openConnection();
@@ -37,9 +37,11 @@ public class apiREST_TopicManager {
       while ((line = in.readLine()) != null) {
         System.out.println(line);
       }
+      return true;
 
     } catch (Exception e) {
       e.printStackTrace();
+      return false;
     }
   }
   public static int removePublisherFromTopic(String topic) {

@@ -17,9 +17,6 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
     numPublishers = 1;
     this.topic = topic;
   }
- 
-  
-  // INFO: Functions copied 25/4 - consider update if improved FIX updateded may
   
      public int incPublishers(){
         return ++numPublishers;
@@ -41,8 +38,6 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
         catch(Exception exx){
             System.out.println("WARNING -> Server -> Publisher -> Exception catched, sub dont exist");
             }
-
-        //...
     }
     public void detachAllSubscribers() {
         try{
@@ -85,39 +80,3 @@ public class PublisherImpl implements PublisherAdmin, Publisher {
 
 
 }
-
-
-
-  /*
-  @Override
-  public int incPublishers() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public int decPublishers() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public void attachSubscriber(Subscriber subscriber) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public void detachSubscriber(Subscriber subscriber) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public void detachAllSubscribers() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  @Override
-  public void publish(String topic, String event) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-  */
-  
-

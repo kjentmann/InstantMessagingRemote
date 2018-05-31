@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.text.DefaultCaret;
 import publisher.Publisher;
 import subscriber.Subscriber;
 import topicmanager.TopicManager;
@@ -19,14 +20,14 @@ public class ClientSwing {
     Publisher publisher;
     String publisherTopic;
     TopicManager topicManager;
-    
+
     JFrame frame;
     JTextArea topic_list_TextArea;
     public JTextArea messages_TextArea;
     public JTextArea my_subscriptions_TextArea;
     JTextArea publisher_TextArea;
     JTextField argument_TextField;
-    
+
     public ClientSwing(TopicManager topicManager) {
         my_subscriptions = new HashMap<String,Subscriber>();
         publisher = null;
@@ -38,12 +39,15 @@ public class ClientSwing {
         frame = new JFrame("DSIT - Publisher/Subscriber demo, user : "+user);
         frame.setSize(900,350);
         frame.addWindowListener(new CloseWindowHandler());
-        
+
         topic_list_TextArea = new JTextArea(5,10);
         messages_TextArea = new JTextArea(10,20);
         my_subscriptions_TextArea = new JTextArea(5,10);
         publisher_TextArea = new JTextArea(1,10);
         argument_TextField = new JTextField(20);
+
+        DefaultCaret caret = (DefaultCaret)messages_TextArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         JButton show_topics_button = new JButton("show Topics");
         JButton new_publisher_button = new JButton("new Publisher");
@@ -94,19 +98,19 @@ public class ClientSwing {
         mainPanel.add(messagesPanel,BorderLayout.CENTER);
         mainPanel.add(argumentP,BorderLayout.PAGE_END);
         mainPanel.add(topicsP,BorderLayout.LINE_START);
-        
+
         //frame.pack(); //manaul size
         messages_TextArea.setEditable(false);
         topic_list_TextArea.setEditable(false);
         my_subscriptions_TextArea.setEditable(false);
         publisher_TextArea.setEditable(false);
         frame.setVisible(true);
-        messages_TextArea.append(getTime() + "SERVER: " +((TopicManagerStub)topicManager).server_status +  "\n"); 
+        messages_TextArea.append(getTime() + "SERVER: " +((TopicManagerStub)topicManager).server_status +  "\n");
         updateTopics();
         argument_TextField.grabFocus();
 
     }
-    
+
     private static String getTime() {
        SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd HH:mm ");
        return sdfTime.format(new Date());
@@ -139,7 +143,7 @@ private void updateTopics(){
         public void actionPerformed(ActionEvent e) {
             String topic = getArg();
             if (topic.isEmpty()){
-                messages_TextArea.append(getTime() + "SYSTEM: Missing input.\n"); 
+                messages_TextArea.append(getTime() + "SYSTEM: Missing input.\n");
             }
             else{
                  if (topic.equals(publisherTopic))
@@ -150,37 +154,41 @@ private void updateTopics(){
 
                     }
                 publisher = topicManager.addPublisherToTopic(topic);
-                publisherTopic=topic;
-                publisher_TextArea.setText(null);
-                publisher_TextArea.append(topic + "\n");
-                messages_TextArea.append(getTime() + "SYSTEM: You are publisher of topic '"+ topic + "̈́'.\n"); 
-            }
+                if (publisher!=null){
+                  publisherTopic=topic;
+                  publisher_TextArea.setText(null);
+                  publisher_TextArea.append(topic + "\n");
+                  messages_TextArea.append(getTime() + "SYSTEM: You are publisher of topic '"+ topic + "̈́'.\n");
+              }
+              else
+                  messages_TextArea.append(getTime() + "SYSTEM: Failed to add topic '"+ topic + "̈́'.\n");
+              }
             updateTopics();
         }
     }
-        
+
     class newSubscriberHandler implements ActionListener{
         public void actionPerformed(ActionEvent e) {
            String topic = getArg();
             if (topic.isEmpty() || my_subscriptions.containsKey(topic) || topic == publisherTopic)
-                messages_TextArea.append(getTime() + "SYSTEM: Invalid operation.\n"); 
+                messages_TextArea.append(getTime() + "SYSTEM: Invalid operation.\n");
             else if (topicManager.isTopic(topic)){
                 Subscriber newsubscriber;
                 newsubscriber = new SubscriberImpl(ClientSwing.this);
                 topicManager.subscribe(topic, newsubscriber);              // Note: adding subscriber to the actual publishers list
                 my_subscriptions.put(topic, newsubscriber);                // Note: adding subscriber to clientSwing subscribers list
                 my_subscriptions_TextArea.append(topic + "\n");
-                messages_TextArea.append(getTime() + "SYSTEM: Subscribed on topic '"+ topic + "̈́'.\n"); 
+                messages_TextArea.append(getTime() + "SYSTEM: Subscribed on topic '"+ topic + "̈́'.\n");
             }
             else{
                 messages_TextArea.append(getTime() + "SYSTEM: Topic '"+ topic + "̈́' does not exist.\n");
                 System.out.println("WARNING -> Clientswing -> Topic '"+ topic + "̈́' does not exist.");
             }
             updateTopics();
-                
+
         }
     }
-        
+
     class UnsubscribeHandler implements ActionListener{
         public void actionPerformed(ActionEvent e) {
             String topic = getArg();
@@ -203,7 +211,7 @@ private void updateTopics(){
             updateTopics();
         }
     }
-    
+
     class postEventHandler implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (publisher != null){
@@ -224,13 +232,13 @@ private void updateTopics(){
         if (publisherTopic!=null){
             System.out.println("INFO -> Clientswing -> Publisher removed before killing client");
             topicManager.removePublisherFromTopic(publisherTopic);
-            } 
+            }
             System.out.println("INFO -> Clientswing -> App closed");
             System.exit(0);
         }
     }
     class CloseWindowHandler implements WindowListener{
-     
+
         public void windowDeactivated(WindowEvent e) {}
         public void windowActivated(WindowEvent e) {}
         public void windowIconified(WindowEvent e) {}

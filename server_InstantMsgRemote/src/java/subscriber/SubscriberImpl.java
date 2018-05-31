@@ -6,10 +6,6 @@ import javax.websocket.Session;
 import util.MySubscriptionClose;
 import util.MyEvent;
 
-/**
- *
- * @author upcnet
- */
 public class SubscriberImpl implements Subscriber {
 
   public Session session;

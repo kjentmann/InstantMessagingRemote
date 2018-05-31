@@ -91,7 +91,6 @@ public class WebSocketClient {
       e.printStackTrace();
     }
   }
-
   @OnMessage
   public void onMessage(String message) {
     Gson gson = new Gson();

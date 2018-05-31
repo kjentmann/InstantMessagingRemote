@@ -24,10 +24,13 @@ public class TopicManagerStub implements TopicManager {
 
   public Publisher addPublisherToTopic(String topic) {
         PublisherStub newPublisher = new PublisherStub(topic);
-        apiREST.addPublisherToTopic(topic);
-        System.out.println("INFO -> TopicManager -> New publisher requested created on topic '"+topic+"'.");
+        if (apiREST.addPublisherToTopic(topic))
+             System.out.println("INFO -> TopicManager -> New publisher requested created on topic '"+topic+"'.");
+        else
+            newPublisher=null;
         return newPublisher;
-  }
+        
+        }
 
   public int removePublisherFromTopic(String topic) {
 
